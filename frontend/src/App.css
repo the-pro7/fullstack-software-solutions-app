@@ -1,0 +1,305 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&family=Roboto+Serif:opsz,wght@8..144,600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:is(img, svg) {
+  max-width: 100%;
+}
+
+body {
+  font-family: system-ui;
+  --error-red: #fa5252;
+  --error-bg: #ffe3e3c7;
+  --bg-dark: #1e1e1e;
+  --text-color: #fff;
+  --font-supporting: "Poppins", sans-serif;
+  --font-main: "Roboto Serif", serif;
+  --bold: 700;
+  --semi-bold: 600;
+  --medium: 500;
+  --regular: 400;
+  --light: 300;
+}
+
+button {
+  font-family: system-ui;
+}
+
+.wrapper {
+  height: 100dvh;
+  background-color: var(--bg-dark);
+}
+
+.section-header {
+  font-family: var(--font-main);
+  color: var(--text-color);
+  font-size: 3rem;
+  text-transform: capitalize;
+}
+
+.section-description {
+  font-family: var(--font-supporting);
+  color: var(--text-color);
+  font-weight: var(--light);
+}
+
+/* Cta styles for sections */
+.section-cta-main {
+  background-color: var(--text-color);
+  color: var(--bg-dark);
+  text-decoration: none;
+  padding: 0.5em 2em;
+  font-weight: var(--bold);
+  border-radius: 0.3rem;
+}
+
+.section-cta-secondary {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: var(--light);
+}
+
+.signup-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100dvh;
+}
+
+.signup-form > * {
+  height: 100%;
+}
+
+.signup-form > .signup-form__content {
+  display: flex;
+  gap: 1em;
+  height: fit-content;
+  flex-direction: column;
+  width: 80%;
+  margin: 5em auto;
+  padding: 1em;
+}
+
+.signup-form__content > h2 {
+  font-size: 2rem;
+}
+
+.signup-form__content > .error {
+  outline: 2px solid var(--error-red);
+  padding: 0.7em;
+  border-radius: 0.5rem;
+  background-color: var(--error-bg);
+  color: var(--error-red);
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.signup-form__content > .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  text-transform: capitalize;
+}
+
+.signup-form__content > .form-group input {
+  padding: 1em 0.5em;
+  border-radius: 0.4rem;
+  border: 0;
+  outline: 3px solid rgb(0, 157, 255);
+  background-color: rgba(218, 218, 218, 0.137);
+}
+
+.signup-form__content > button {
+  border-radius: 0.4rem;
+  border: 0;
+  padding: 1em 0;
+  cursor: pointer;
+  color: #333;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: all 300ms ease;
+
+  &:hover {
+    color: #fff;
+    background-color: rgb(0, 157, 255);
+  }
+}
+
+.signup-form__content > .account-exists {
+  text-transform: capitalize;
+}
+
+.account-exists .link {
+  color: rgb(0, 157, 255);
+}
+
+.signup-form > .signup-form__image {
+  object-fit: cover;
+  grid-column: span 2;
+}
+
+/* Navbar */
+.primary-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 5em;
+  position: sticky;
+  top: 10px;
+  z-index: 1000;
+}
+
+.primary-nav > .logo img {
+  width: 10em;
+}
+
+.primary-nav > .primary-nav__links {
+  list-style: none;
+  display: inherit;
+  gap: 6em;
+  /* outline: 2px solid green; */
+  width: 90%;
+}
+
+.primary-nav > .primary-nav__links > .margin-left-auto {
+  margin-left: auto;
+}
+
+.primary-nav__links > .link > * {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.primary-nav__links > .signup-cta {
+  & > * {
+    background-color: var(--text-color);
+    padding: 0.5em 1em;
+    border-radius: 0.5rem;
+    color: var(--bg-dark);
+    font-weight: bold;
+  }
+}
+
+/* Hero stuff */
+.hero-section {
+  display: flex;
+  position: relative;
+  overflow-x: clip;
+}
+
+/* Actual content of the hero section */
+.hero-section > .hero-section__content {
+  width: 70%;
+  margin: 3em 3em 0 5em;
+}
+
+.hero-section__content > .header {
+  font-size: 4rem;
+}
+
+.hero-section__content > .margin-top {
+  margin-top: 0.5em;
+  width: 60%;
+}
+
+.hero-section__content > .section-ctas {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-top: 1.5em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.section-ctas > .learn {
+  display: inherit;
+  align-items: inherit;
+  gap: 0.5em;
+}
+
+.hero-section > .hero-section__image {
+  position: relative;
+  isolation: isolate;
+
+  img {
+    /* width: 100px; */
+    scale: 1.4;
+    rotate: 15deg;
+    object-fit: cover;
+    translate: 0 70px;
+  }
+}
+
+.hero-section__image::before {
+  content: "";
+  background-color: #00000042;
+  position: absolute;
+  width: 800px;
+  aspect-ratio: 1;
+  top: -9rem;
+  right: -20rem;
+  border-radius: 50%;
+  z-index: -1 !important;
+}
+
+/* Service circle image styles */
+.service-cirlce {
+  cursor: pointer;
+  img {
+    background-color: #fff;
+    width: 55px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    transition: scale 300ms ease-in-out;
+    &:hover {
+      scale: -1.1;
+    }
+  }
+}
+
+/* Modal/Dialog */
+.register-prompt {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 1em;
+  margin-top: 0.5em;
+  background-color: var(--text-color);
+  border-radius: .3rem;
+}
+
+.register-prompt > h4 {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-inline: auto;
+  font-weight: var(--bold);
+  color: var(--bg-dark);
+}
+
+.register-prompt > .register-prompt__ctas {
+  margin-top: 0.5em;
+  display: flex;
+  gap: 1em;
+}
+
+.register-prompt__ctas > * {
+  outline: 2px solid var(--bg-dark);
+  border-radius: 0.3rem;
+}
+
+.register-prompt__ctas > .create {
+  text-decoration: none;
+  background-color: var(--bg-dark);
+  color: var(--text-color);
+  padding: 0.5em 1em;
+}
+
+.register-prompt__ctas > .cancel {
+  border: 0;
+  background-color: transparent;
+  font-weight: var(--bold);
+  padding: 0.5em 2em;
+  cursor: pointer;
+}
