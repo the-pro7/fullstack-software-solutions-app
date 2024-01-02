@@ -44,10 +44,7 @@ export default function UserProfile () {
   }, [id])
 
   const date = new Date(user.createdAt)
-  const formattedDate = `${
-    date.getMonth() + 1
-  }/0${date.getDay()}/${date.getFullYear()}`
-
+  const formattedDate = Intl.DateTimeFormat("en-GB").format(date)
   // Delete user
   async function handleDelete (id) {
     if (!id) return

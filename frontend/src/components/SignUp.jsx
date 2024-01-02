@@ -3,7 +3,6 @@ import SignUpImage from '../assets/signup.png'
 import { Link, useNavigate } from 'react-router-dom'
 
 const SignUp = ({ showError, error, setLoading, loading }) => {
-  const formRef = useRef()
   const nameRef = useRef()
   const emailRef = useRef()
   const passwordRef = useRef()
