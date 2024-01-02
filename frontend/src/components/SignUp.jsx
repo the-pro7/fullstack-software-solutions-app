@@ -2,8 +2,7 @@ import React, { useRef, useState } from 'react'
 import SignUpImage from '../assets/signup.png'
 import { Link, useNavigate } from 'react-router-dom'
 
-
-const SignUp = ({showError, error}) => {
+const SignUp = ({ showError, error, setLoading, loading }) => {
   const formRef = useRef()
   const nameRef = useRef()
   const emailRef = useRef()
@@ -12,19 +11,18 @@ const SignUp = ({showError, error}) => {
 
   const navigate = useNavigate()
 
-
   function validatePasswordLength (password = '') {
     if (password.length < 8) {
       showError('Password must be at leat 8 characters long.', 2500)
       return false
     }
-
     return true
   }
 
   async function handleSignUp (e) {
     e.preventDefault()
     showError('')
+    setLoading(false)
     let name = nameRef.current.value
     let email = emailRef.current.value
     let password = passwordRef.current.value
@@ -52,21 +50,27 @@ const SignUp = ({showError, error}) => {
     if (validatePasswordLength(password)) {
       console.log('Password length okay')
       try {
-        let response = await fetch('http://localhost:5001/api/users/register', registerOptions)
+        setLoading(true)
+        let response = await fetch(
+          'http://localhost:5001/api/users/register',
+          registerOptions
+        )
 
         if (response.ok) {
-            console.log("Server accepted request")
-            navigate("/login")
+          console.log('Server accepted request')
+          console.log(loading)
+          setLoading(false)
+          navigate('/login')
         } else {
-            showError("Something went wrong, try again")
+          showError('Something went wrong, try again', 2500)
         }
 
         showError('')
       } catch (error) {
-        showError(error.message, 2500)
+        showError(`Something went wrong ${error.message}`, 2500)
       } finally {
+        setLoading(false)
         showError('')
-        // formRef.current.reset()
       }
     }
   }
@@ -103,8 +107,8 @@ const SignUp = ({showError, error}) => {
             ref={passwordConfirmRef}
           />
         </div>
-        <button type='submit'>
-          Register Now
+        <button type='submit' disabled={loading}>
+          {loading ? 'Creating account' : 'Register Now'}
         </button>
         <div className='account-exists'>
           <p>

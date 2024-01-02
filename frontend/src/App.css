@@ -37,7 +37,7 @@ button {
 .section-header {
   font-family: var(--font-main);
   color: var(--text-color);
-  font-size: 3rem;
+  font-size: clamp(4rem, 30vw, 6rem);;
   text-transform: capitalize;
 }
 
@@ -159,6 +159,7 @@ button {
 .primary-nav > .primary-nav__links {
   list-style: none;
   display: inherit;
+  align-items: center;
   gap: 6em;
   /* outline: 2px solid green; */
   width: 90%;
@@ -180,6 +181,63 @@ button {
     border-radius: 0.5rem;
     color: var(--bg-dark);
     font-weight: bold;
+  }
+}
+
+.primary-nav__links > .user-avatar > .user-avatar__options {
+  all: unset;
+  width: 40px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: clip;
+  position: relative;
+
+  img {
+    width: inherit;
+    aspect-ratio: 1;
+    border-radius: inherit;
+    object-fit: cover;
+    border: 2px solid #fff;
+    cursor: pointer;
+  }
+
+  /* Profile */
+  .user-profile-dropdown {
+    position: absolute;
+    left: -2rem;
+    border-radius: 0.5rem;
+    background-color: var(--text-color);
+    padding: 1em 0.3em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 120px;
+    color: var(--bg-dark);
+
+    p {
+      border-bottom: thin solid var(--bg-dark);
+    }
+
+    a {
+      text-decoration: none;
+      color: unset;
+      border-radius: 0.3rem;
+    }
+
+    button {
+      all: unset;
+      cursor: pointer;
+      padding: 0.5em;
+      border-radius: 0.3rem;
+    }
+  }
+
+  .user-profile-dropdown > * {
+    padding: 0.5em;
+  }
+
+  .user-profile-dropdown > *:not(p):hover {
+    background-color: #2222223a;
   }
 }
 
@@ -267,7 +325,7 @@ button {
   padding: 1em;
   margin-top: 0.5em;
   background-color: var(--text-color);
-  border-radius: .3rem;
+  border-radius: 0.3rem;
 }
 
 .register-prompt > h4 {
@@ -302,4 +360,213 @@ button {
   font-weight: var(--bold);
   padding: 0.5em 2em;
   cursor: pointer;
+}
+
+/* Profile page ---- card */
+.user-profile-card {
+  height: 100dvh;
+  background-color: var(--bg-dark);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-auto-flow: dense;
+  gap: 2em;
+  padding: 3em;
+}
+
+/* Styles for currently active user details */
+
+.user-profile-card > .user-profile-current {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: fit-content;
+
+  .back {
+    text-decoration: none;
+    color: var(--bg-dark);
+    background-color: var(--text-color);
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 0.5em 1em;
+    border-radius: 0.3rem;
+    font-weight: var(--semi-bold);
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  .user-profile-image {
+    width: -moz-fit-content;
+    width: fit-content;
+    isolation: isolate;
+    position: relative;
+    border-radius: 50%;
+
+    /* Actual user avatar/image */
+    img {
+      width: 400px;
+      aspect-ratio: 1;
+      border: 2px solid var(--text-color);
+      border-radius: 50%;
+    }
+
+    /* Edit image button */
+    .edit-button {
+      width: 40px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      bottom: 0;
+      right: 6.2rem;
+      z-index: 100;
+      font-size: 1rem;
+      cursor: pointer;
+      border: 0;
+      background-color: var(--text-color);
+      box-shadow: 3px 4px 15px rgb(0 0 0 / 0.5);
+
+      label {
+        cursor: inherit;
+      }
+    }
+  }
+
+  .user-profile-content {
+    padding-left: 2em;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    h1 {
+      font-size: 3rem;
+    }
+
+    .logout {
+      width: -moz-fit-content;
+      width: fit-content;
+      padding: 0.5em 2em;
+      cursor: pointer;
+      border: 0;
+      background-color: var(--text-color);
+      color: var(--bg-dark);
+      font-weight: var(--bold);
+      border-radius: 0.3rem;
+      margin-top: 1em;
+    }
+  }
+}
+
+/* Styles for the yet-to-update part (sorta) */
+.user-profile-card > .user-profile-update {
+  color: var(--text-color);
+  padding: 1em;
+  grid-column: span 2;
+  display: flex;
+  gap: 2em;
+
+  & > * {
+    background-color: #69686874;
+    padding: 2em;
+    border-radius: 0.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 0.3em;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    width: 50%;
+
+    .form-group {
+      display: inherit;
+      flex-direction: inherit;
+      width: 100%;
+      gap: 0.5em;
+
+      :is(input, select) {
+        border: 0;
+        padding: 1em;
+        border-radius: 0.3rem;
+        background-color: transparent;
+        outline: 2px solid var(--text-color);
+        color: #fff;
+      }
+    }
+
+    /* Change account link/button */
+    a {
+      color: var(--text-color);
+    }
+
+    /* Update user profile details */
+    button {
+      border: 0;
+      background-color: var(--text-color);
+      color: var(--bg-dark);
+      padding: 0.5em 2em;
+      cursor: pointer;
+      width: -moz-fit-content;
+      width: fit-content;
+      font-weight: var(--semi-bold);
+      font-size: 1rem;
+      display: flex;
+      gap: 0.5em;
+      align-items: center;
+      border-radius: 0.3rem;
+    }
+  }
+
+  /* Delete */
+  .account-options {
+    height: fit-content;
+    width: 35%;
+    color: var(--error-red);
+    padding: 2em;
+
+    .delete-account {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+
+      button {
+        border: 0;
+        background-color: var(--error-bg);
+        padding: 0.7em 1em;
+        outline: 3px solid var(--error-red);
+        color: var(--error-red);
+        font-weight: var(--semi-bold);
+        border-radius: 0.5rem;
+        display: flex;
+        gap: 1em;
+        font-size: 1rem;
+        align-items: center;
+        cursor: pointer;
+        transition: all 300ms ease;
+
+        &:hover {
+          background-color: var(--error-red);
+          color: var(--text-color);
+        }
+
+        .icon {
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    .warning {
+      background-color: #fff3bf;
+      outline: 3px solid #ffd43b;
+      color: #f59f00;
+      border-radius: 0.5rem;
+      margin-top: 2em;
+      padding: 0.8em;
+    }
+  }
 }

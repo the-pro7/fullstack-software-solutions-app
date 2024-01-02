@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, lazy } from 'react'
 import './App.css'
 import SignUp from './components/SignUp'
 import { Route, Routes } from 'react-router-dom'
@@ -6,11 +6,18 @@ import Login from './components/LogIn'
 import ProtectedRoutes from './components/protected-routes/ProtectedRoutes'
 import WelcomeScreen from './components/WelcomeScreen'
 import LandingPage from './components/LandingPage'
+import UserProfile from './components/UserProfile'
+const NotFound = lazy(() => import('./components/NotFound'))
 
 function App () {
   const [loading, setLoading] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+
+  const user = JSON.parse(localStorage.getItem('user'))
+  const token = localStorage.getItem('token')
+
+
 
   function showError (message = '', timeInterval = 1000) {
     if (message) {
@@ -42,7 +49,14 @@ function App () {
         <Route path='/' element={<LandingPage />} />
         <Route
           path='/signup'
-          element={<SignUp showError={showError} error={error} />}
+          element={
+            <SignUp
+              showError={showError}
+              error={error}
+              setLoading={setLoading}
+              loading={loading}
+            />
+          }
         />
         <Route
           path='/login'
@@ -52,10 +66,22 @@ function App () {
           path='/welcome'
           element={
             <ProtectedRoutes>
-              <WelcomeScreen showSuccess={showSuccess} success={success}/>
+              <WelcomeScreen showSuccess={showSuccess} success={success} />
             </ProtectedRoutes>
           }
         />
+
+        {/* Route to user profile */}
+        <Route
+          path={`/user-profile/:id`}
+          element={
+            <ProtectedRoutes>
+              <UserProfile />
+            </ProtectedRoutes>
+          }
+        />
+
+        <Route path='*' element={<NotFound />}></Route>
       </Routes>
     </>
   )

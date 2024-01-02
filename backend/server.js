@@ -7,9 +7,8 @@ const mongoose = require("mongoose")
 
 const app = express()
 
-// Middle ware
+// Middleware
 app.use(cors({origin: "http://localhost:5173", credentials: true, optionsSuccessStatus: 200}))
-// app.use(cookieParser())
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cookieParser())

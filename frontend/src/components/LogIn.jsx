@@ -4,12 +4,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 const Login = ({ showError, error }) => {
+  const [loading, setLoading] = useState(false)
   const emailRef = useRef()
   const passwordRef = useRef()
   const navigate = useNavigate()
 
   async function handleLogin (e) {
     e.preventDefault()
+    setLoading(false)
     showError('')
     const email = emailRef.current.value
     const password = passwordRef.current.value
@@ -29,6 +31,7 @@ const Login = ({ showError, error }) => {
     }
 
     try {
+      setLoading(true)
       let response = await fetch(
         'http://localhost:5001/api/users/login',
         loginOptions
@@ -40,8 +43,9 @@ const Login = ({ showError, error }) => {
         console.log('Signed in successfully')
         localStorage.setItem("token", data.token)
         localStorage.setItem("user", JSON.stringify(data))
-
-        navigate("/welcome")
+        
+        setLoading(false)
+        navigate(`/welcome`)
       } else {
         console.log(response.message)
       }
@@ -49,6 +53,7 @@ const Login = ({ showError, error }) => {
       showError(error.message, 2500)
       console.log(error.message)
     } finally {
+      setLoading(false)
       showError('')
       console.log('What is done is done!!!')
     }
@@ -72,7 +77,9 @@ const Login = ({ showError, error }) => {
             ref={passwordRef}
           />
         </div>
-        <button type='submit'>Login Now</button>
+        <button type='submit' disabled={loading}>
+          {loading ? "Logging you in..." : "Login Now"}
+        </button>
         <div className='account-exists'>
           <p>
             Need an account?{' '}
